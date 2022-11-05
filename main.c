@@ -20,5 +20,13 @@
 
 int	main(int ac, char **av)
 {
+	(void)av;
+	
+	if (ac == 5 || ac == 6)
+	{
+
+	}
+	else
+		printf("argument not correct\n");
 	return (0);
 }
