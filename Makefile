@@ -28,11 +28,11 @@ $(NAME): $(OBJS)
 	$(GCC) $(FLAG) -o $(NAME) $(MAIN) $(OBJS)
 
 clean:
-	rem -rf *.o
+	rm -rf *.o
 
 fclean: clean
 	rm -rf $(NAME)
 
 re: fclean all
 
-.PHONY all bonus clean fclean re
+.PHONY: all bonus clean fclean re
