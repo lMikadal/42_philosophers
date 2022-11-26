@@ -51,9 +51,7 @@ void	ft_print(int time, int mode, int philo)
 
 void	ft_free(t_rule *rule)
 {
-	int	i;
-
-	i = -1;
-	while (++i < rule->n_philo)
-		free(&rule->philo[i]);
+	free(rule->philo);
+	free(rule->fork);
+	free(rule->p);
 }

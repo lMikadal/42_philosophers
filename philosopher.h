@@ -28,22 +28,28 @@
 
 typedef struct s_philo
 {
-	int	id;
-	int	fork;
+	int				id;
+	int				fork;
+	int				die;
+	int				eat;
+	int				sleep;
+	int				c_eat;
+	pthread_mutex_t	mutex[2];
 }	t_philo;
 
 typedef struct s_rule
 {
-	int		n_philo;
-	int		die;
-	int		eat;
-	int		sleep;
-	int		c_eat;
-	t_philo	*philo;
+	int				n_philo;
+	t_philo			*philo;
+	pthread_mutex_t	*fork;
+	pthread_t		*p;
+	int				ac;
+	char			**av;
 }	t_rule;
 
 int		ft_atoi(char *str);
 void	ft_print(int time, int mode, int philo);
 void	ft_free(t_rule *rule);
+void	ft_run(t_rule *rule);
 
 #endif
