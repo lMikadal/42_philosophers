@@ -12,7 +12,7 @@
 
 NAME = philo
 
-SRCS = philosopher.c print.c
+SRCS = philosopher.c utils.c
 
 MAIN = main.c
 

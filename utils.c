@@ -1,16 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print.c                                            :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pmikada <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/26 15:36:29 by pmikada           #+#    #+#             */
-/*   Updated: 2022/11/26 15:36:31 by pmikada          ###   ########.fr       */
+/*   Created: 2022/11/26 16:12:10 by pmikada           #+#    #+#             */
+/*   Updated: 2022/11/26 16:12:12 by pmikada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosopher.h"
+
+int	ft_atoi(char *str)
+{
+	int	i;
+	int	m;
+	int	sum;
+
+	i = 0;
+	while ((str[i] >= '\t' && str[i] <= '\r') || str[i] == ' ')
+		i++;
+	m = 1;
+	if (str[i] == '-')
+		m = -1;
+	if (str[i] == '-' || str[i] == '+')
+		i++;
+	sum = 0;
+	while (str[i] >= '0' && str[i] <= '9')
+	{
+		sum = (sum * 10) + (str[i] - '0');
+		i++;
+	}
+	return (sum * m);
+}
 
 void	ft_print(int time, int mode, int philo)
 {
@@ -22,6 +45,15 @@ void	ft_print(int time, int mode, int philo)
 		printf("%d %d is sleeping\n", time, philo);
 	else if (mode == 4)
 		printf("%d %d is thinking\n", time, philo);
-	else
+	else if (mode == 5)
 		printf("%d %d died\n", time, philo);
+}
+
+void	ft_free(t_rule *rule)
+{
+	int	i;
+
+	i = -1;
+	while (++i < rule->n_philo)
+		free(&rule->philo[i]);
 }

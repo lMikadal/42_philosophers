@@ -20,6 +20,30 @@
 # include <sys/time.h>
 # include <pthread.h>
 
+# define FORK 1
+# define EAT 2
+# define SLEEP 3
+# define THINK 4
+# define DIED 5
+
+typedef struct s_philo
+{
+	int	id;
+	int	fork;
+}	t_philo;
+
+typedef struct s_rule
+{
+	int		n_philo;
+	int		die;
+	int		eat;
+	int		sleep;
+	int		c_eat;
+	t_philo	*philo;
+}	t_rule;
+
+int		ft_atoi(char *str);
 void	ft_print(int time, int mode, int philo);
+void	ft_free(t_rule *rule);
 
 #endif
