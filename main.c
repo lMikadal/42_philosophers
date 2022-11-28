@@ -66,7 +66,7 @@ static void	ft_add_rule(int ac, char **av, t_rule *rule)
 int	main(int ac, char **av)
 {
 	t_rule	rule;
-printf("test");
+
 	if (ac == 5 || ac == 6)
 	{
 		if (ft_check_av(ac, av) == -1 || ft_atoi(av[1]) == 0)
