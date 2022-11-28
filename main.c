@@ -6,7 +6,7 @@
 /*   By: pmikada <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/05 15:00:17 by pmikada           #+#    #+#             */
-/*   Updated: 2022/11/28 19:16:21 by pmikada          ###   ########.fr       */
+/*   Updated: 2022/11/28 20:00:37 by pmikada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ static void	ft_add_rule(int ac, char **av, t_rule *rule)
 int	main(int ac, char **av)
 {
 	t_rule	rule;
-
+printf("test");
 	if (ac == 5 || ac == 6)
 	{
 		if (ft_check_av(ac, av) == -1 || ft_atoi(av[1]) == 0)
