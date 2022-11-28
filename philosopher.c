@@ -6,7 +6,7 @@
 /*   By: pmikada <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/05 15:00:12 by pmikada           #+#    #+#             */
-/*   Updated: 2022/11/05 15:00:13 by pmikada          ###   ########.fr       */
+/*   Updated: 2022/11/28 19:23:12 by pmikada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,9 @@ void	*routine(void* rule)
 	t_philo	*r;
 
 	r = (t_philo *)rule;
+	pthread_mutex_lock(r->mutex[0]);
+	printf("id %d\n", r->id);
+	pthread_mutex_unlock(r->mutex[0]);
 	return (NULL);
 }
 

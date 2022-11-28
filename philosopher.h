@@ -6,7 +6,7 @@
 /*   By: pmikada <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/05 15:00:00 by pmikada           #+#    #+#             */
-/*   Updated: 2022/11/05 15:00:02 by pmikada          ###   ########.fr       */
+/*   Updated: 2022/11/28 19:11:28 by pmikada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ typedef struct s_philo
 	int				eat;
 	int				sleep;
 	int				c_eat;
-	pthread_mutex_t	mutex[2];
+	pthread_mutex_t	**mutex;
 }	t_philo;
 
 typedef struct s_rule

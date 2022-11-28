@@ -6,7 +6,7 @@
 /*   By: pmikada <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/05 15:00:17 by pmikada           #+#    #+#             */
-/*   Updated: 2022/11/05 15:00:18 by pmikada          ###   ########.fr       */
+/*   Updated: 2022/11/28 19:16:21 by pmikada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,6 @@ static void	ft_init_philo(t_philo *philo, int id, t_rule *rule)
 		philo->c_eat = ft_atoi(rule->av[5]);
 	else
 		philo->c_eat = -1;
-	// philo->mutex[0] = &rule->fork[id - 1];
-	// if (id == ft_atoi(rule->av[1]))
-	// 	philo->mutex[1] = rule->fork[0];
-	// else
-	// 	philo->mutex[1] = rule->fork[id];
-// printf("addr rule %p\n", rule->fork[id - 1]);
 }
 
 static void	ft_add_rule(int ac, char **av, t_rule *rule)
@@ -61,6 +55,9 @@ static void	ft_add_rule(int ac, char **av, t_rule *rule)
 		* rule->n_philo);
 	if (rule->fork == NULL)
 		return ;
+	i = -1;
+	while (++i < rule->n_philo)
+		rule->philo[i].mutex = &rule->fork;
 	rule->p = (pthread_t *)malloc(sizeof(pthread_t) * rule->n_philo);
 	if (rule->p == NULL)
 		return ;
