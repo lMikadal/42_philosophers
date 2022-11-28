@@ -67,6 +67,8 @@ int	main(int ac, char **av)
 {
 	t_rule	rule;
 
+printf("test\n");
+exit (0);
 	if (ac == 5 || ac == 6)
 	{
 		if (ft_check_av(ac, av) == -1 || ft_atoi(av[1]) == 0)
