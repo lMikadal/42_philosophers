@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: pmikada <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/05 15:00:00 by pmikada           #+#    #+#             */
-/*   Updated: 2022/11/28 19:11:28 by pmikada          ###   ########.fr       */
+/*   Created: 2022/12/10 09:52:05 by pmikada           #+#    #+#             */
+/*   Updated: 2022/12/10 09:52:07 by pmikada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,15 +26,23 @@
 # define THINK 4
 # define DIED 5
 
+# define BLUE "\033[0;34m"
+# define PURPLE "\033[0;35m"
+# define GREEN "\033[0;32m"
+# define YELLOW "\033[0;33m"
+# define RED "\033[0;31m"
+# define WHITE "\033[0m"
+
 typedef struct s_philo
 {
 	int				id;
-	int				fork;
-	int				die;
-	int				eat;
-	int				sleep;
-	int				c_eat;
-	pthread_mutex_t	**mutex;
+	int				forkleft;
+	int				forkright;
+	int				t_die;
+	int				t_eat;
+	int				t_sleep;
+	int				n_eat;
+	struct timeval	l_eat;
 }	t_philo;
 
 typedef struct s_rule
@@ -42,14 +50,19 @@ typedef struct s_rule
 	int				n_philo;
 	t_philo			*philo;
 	pthread_mutex_t	*fork;
-	pthread_t		*p;
-	int				ac;
-	char			**av;
+	pthread_mutex_t	*thread;
+	pthread_mutex_t	print;
+	pthread_mutex_t	p_die;
+	struct timeval	s_eat;
+	int				index;
+	int				philo_full;
 }	t_rule;
 
 int		ft_atoi(char *str);
-void	ft_print(int time, int mode, int philo);
+void	ft_print(long time, int mode, int id, int print);
+long	ft_getmil(void);
+long	ft_gettime(struct timeval start);
+void	ft_usleep(int time);
 void	ft_free(t_rule *rule);
-void	ft_run(t_rule *rule);
 
 #endif

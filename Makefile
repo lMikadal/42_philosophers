@@ -5,20 +5,20 @@
 #                                                     +:+ +:+         +:+      #
 #    By: pmikada <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2022/11/05 14:59:29 by pmikada           #+#    #+#              #
-#    Updated: 2022/11/05 14:59:32 by pmikada          ###   ########.fr        #
+#    Created: 2022/12/10 09:48:20 by pmikada           #+#    #+#              #
+#    Updated: 2022/12/10 09:48:22 by pmikada          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = philo
 
-SRCS = philosopher.c utils.c
+SRCS = philosopher.c utils.c utils2.c
 
 MAIN = main.c
 
 GCC = gcc
 
-FLAG = -Wall -Wextra -Werror
+FLAG = -Wall -Wextra -Werror -pthread
 
 OBJS = $(SRCS:.c=.o)
 
@@ -35,4 +35,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all bonus clean fclean re
+.PHONY: all clean fclean re
