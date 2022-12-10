@@ -50,7 +50,7 @@ void	ft_print(long time, int mode, int id, int print)
 			printf("%s%ld %d is sleeping%s\n", GREEN, time, id, WHITE);
 		else if (mode == THINK)
 			printf("%s%ld %d is thinking%s\n", YELLOW, time, id, WHITE);
-		else if (mode == DIED)
+		else if (mode == DIE)
 			printf("%s%ld %d died%s\n", RED, time, id, WHITE);
 	}
 }
@@ -71,11 +71,18 @@ long	ft_gettime(struct timeval start)
 	return (re);
 }
 
-void	ft_usleep(int time)
+void	ft_usleep(int time, int t_die, int *die)
 {
 	long	now;
 
 	now = ft_getmil();
 	while (ft_getmil() - now < (long)time)
+	{
+		if (ft_getmil() - now >= (long)t_die)
+		{
+			*die = 1;
+			return ;
+		}
 		usleep(500);
+	}
 }

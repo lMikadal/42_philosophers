@@ -15,4 +15,11 @@
 void	ft_free(t_rule *rule)
 {
 	free(rule->philo);
+	free(rule->fork);
+	free(rule->thread);
+}
+
+long	ft_getmil_value(struct timeval now)
+{
+	return ((now.tv_sec * 1000) + (now.tv_usec / 1000));
 }

@@ -29,12 +29,15 @@ static int	ft_check_argument(int ac, char **av)
 
 static void	ft_process_die(char **av, t_rule *r)
 {
+	int	die;
+
+	die = 1;
 	ft_print(ft_gettime(r->s_eat), FORK, 1, 1);
-	ft_usleep(ft_atoi(av[2]));
-	ft_print(ft_gettime(r->s_eat), DIED, 1, 1);
+	usleep(ft_atoi(av[2]) * 1000);
+	ft_print(ft_atoi(av[2]), DIE, 1, 1);
 }
 
-static void ft_init_philo(t_philo *philo, int id, int ac, char **av)
+static void	ft_init_philo(t_philo *philo, int id, int ac, char **av)
 {
 	philo->id = id;
 	philo->forkleft = id - 1;
@@ -52,24 +55,33 @@ static void ft_init_philo(t_philo *philo, int id, int ac, char **av)
 	gettimeofday(&philo->l_eat, NULL);
 }
 
-static void	ft_add_rule(int ac, char **av, t_rule *r)
+static int	ft_add_rule(int ac, char **av, t_rule *r)
 {
 	int	i;
 
-	(void)ac;
 	r->n_philo = ft_atoi(av[1]);
 	r->philo = (t_philo *)malloc(sizeof(t_philo) * r->n_philo);
 	if (r->philo == NULL)
-		return ;
+		return (0);
 	i = -1;
 	while (++i < r->n_philo)
 		ft_init_philo(&r->philo[i], i + 1, ac, av);
+	r->fork = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) * r->n_philo);
+	if (r->fork == NULL)
+		return (0);
+	r->thread = (pthread_t *)malloc(sizeof(pthread_t) * r->n_philo);
+	if (r->thread == NULL)
+		return (0);
 	gettimeofday(&r->s_eat, NULL);
+	r->die = 0;
+	r->p = 1;
+	r->philo_full = 0;
 	if (r->n_philo == 1)
 	{
 		ft_process_die(av, r);
-		return ;
+		return (0);
 	}
+	return (1);
 }
 
 int	main(int ac, char **av)
@@ -78,7 +90,8 @@ int	main(int ac, char **av)
 
 	if ((ac == 5 || ac == 6) && ft_check_argument(ac, av))
 	{
-		ft_add_rule(ac, av, &rule);
+		if (ft_add_rule(ac, av, &rule))
+			ft_thread(&rule);
 		ft_free(&rule);
 	}
 	else

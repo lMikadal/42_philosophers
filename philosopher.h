@@ -24,7 +24,7 @@
 # define EAT 2
 # define SLEEP 3
 # define THINK 4
-# define DIED 5
+# define DIE 5
 
 # define BLUE "\033[0;34m"
 # define PURPLE "\033[0;35m"
@@ -50,19 +50,25 @@ typedef struct s_rule
 	int				n_philo;
 	t_philo			*philo;
 	pthread_mutex_t	*fork;
-	pthread_mutex_t	*thread;
+	pthread_t		*thread;
 	pthread_mutex_t	print;
 	pthread_mutex_t	p_die;
 	struct timeval	s_eat;
 	int				index;
+	int				die;
+	int				p;
 	int				philo_full;
 }	t_rule;
 
+void	ft_thread(t_rule *r);
+int		ft_eat(t_rule *r, int i);
+int		ft_sleep(t_rule *r, int i);
 int		ft_atoi(char *str);
 void	ft_print(long time, int mode, int id, int print);
 long	ft_getmil(void);
 long	ft_gettime(struct timeval start);
-void	ft_usleep(int time);
+void	ft_usleep(int time, int t_die, int *die);
 void	ft_free(t_rule *rule);
+long	ft_getmil_value(struct timeval now);
 
 #endif
