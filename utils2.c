@@ -23,3 +23,16 @@ long	ft_getmil_value(struct timeval now)
 {
 	return ((now.tv_sec * 1000) + (now.tv_usec / 1000));
 }
+
+void	ft_unlock_fork(t_rule *r)
+{
+	int	i;
+
+	i = -1;
+	while (++i < r->n_philo)
+	{
+		pthread_mutex_unlock(&r->print);
+		pthread_mutex_unlock(&r->fork[r->philo[i].forkright]);
+		pthread_mutex_unlock(&r->fork[r->philo[i].forkleft]);
+	}
+}

@@ -90,6 +90,7 @@ int	main(int ac, char **av)
 
 	if ((ac == 5 || ac == 6) && ft_check_argument(ac, av))
 	{
+		rule.unlock = 1;
 		if (ft_add_rule(ac, av, &rule))
 			ft_thread(&rule);
 		ft_free(&rule);

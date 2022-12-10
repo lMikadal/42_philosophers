@@ -12,6 +12,22 @@
 
 #include "philosopher.h"
 
+static void	*ft_time(void *rule)
+{
+	t_rule			*r;
+
+	r = (t_rule *)rule;
+	while (1)
+	{
+		ft_chk(r);
+		if (r->die == 1 || r->philo_full >= r->n_philo)
+			break ;
+	}
+	while (r->unlock)
+		ft_unlock_fork(r);
+	return (NULL);
+}
+
 static void	*routine(void *rule)
 {
 	t_rule	*r;
@@ -89,8 +105,11 @@ void	ft_thread(t_rule *r)
 		}
 		usleep(5);
 	}
+	pthread_create(&r->count, NULL, &ft_time, r);
 	i = -1;
 	while (++i < r->n_philo)
 		pthread_join(r->thread[i], NULL);
+	r->unlock = 0;
+	pthread_join(r->count, NULL);
 	ft_destory(r);
 }
