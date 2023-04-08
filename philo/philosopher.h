@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: pmikada <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/10 09:52:05 by pmikada           #+#    #+#             */
-/*   Updated: 2022/12/10 09:52:07 by pmikada          ###   ########.fr       */
+/*   Created: 2022/12/12 21:10:12 by pmikada           #+#    #+#             */
+/*   Updated: 2022/12/15 15:05:46 by pmikada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,47 +33,51 @@
 # define RED "\033[0;31m"
 # define WHITE "\033[0m"
 
+typedef struct s_rule	t_rule;
+
+typedef struct s_arg
+{
+	int		ac;
+	char	**av;
+}	t_arg;
+
 typedef struct s_philo
 {
-	int				id;
-	int				forkleft;
-	int				forkright;
-	int				t_die;
-	int				t_eat;
-	int				t_sleep;
-	int				n_eat;
-	struct timeval	l_eat;
+	int		id;
+	int		forkleft;
+	int		forkright;
+	int		c_eat;
+	long	l_eat;
+	t_rule	*r;
 }	t_philo;
 
 typedef struct s_rule
 {
 	int				n_philo;
 	t_philo			*philo;
-	pthread_mutex_t	*fork;
+	long			time_start;
+	int				time_die;
+	int				time_eat;
+	int				time_sleep;
+	int				count_eat;
+	int				full_philo;
 	pthread_t		*thread;
-	pthread_t		count;
-	pthread_mutex_t	print;
-	pthread_mutex_t	p_die;
-	struct timeval	s_eat;
-	int				index;
-	int				die;
-	int				p;
-	int				unlock;
-	int				philo_full;
+	pthread_t		time;
+	pthread_mutex_t	*fork;
+	pthread_mutex_t	table;
+	pthread_mutex_t	print_die;
+	int				alive;
 }	t_rule;
 
-void	ft_thread(t_rule *r);
-void	ft_chk(t_rule *r);
-void	ft_die(t_rule *r, int i);
-int		ft_eat(t_rule *r, int i);
-int		ft_sleep(t_rule *r, int i);
-int		ft_atoi(char *str);
+void	ft_run(t_rule *r);
+int		ft_chk_die(t_rule *r);
+int		ft_philo_eat(t_philo *p);
+void	ft_philo_sleep(t_philo *p);
+int		ft_atoi(char *s);
+long	ft_mil_now(void);
+long	ft_mil_print(long time_start);
 void	ft_print(long time, int mode, int id, int print);
-long	ft_getmil(void);
-long	ft_gettime(struct timeval start);
-void	ft_usleep(int time, int t_die, int *die);
-void	ft_free(t_rule *rule);
-long	ft_getmil_value(struct timeval now);
+void	ft_free(t_rule *r);
+void	ft_sleep(int time_eat);
 void	ft_unlock_fork(t_rule *r);
-
 #endif

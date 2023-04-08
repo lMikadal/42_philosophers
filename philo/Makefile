@@ -6,7 +6,7 @@
 #    By: pmikada <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/10 09:48:20 by pmikada           #+#    #+#              #
-#    Updated: 2022/12/10 09:48:22 by pmikada          ###   ########.fr        #
+#    Updated: 2022/12/12 21:08:11 by pmikada          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ MAIN = main.c
 
 GCC = gcc
 
-FLAG = -Wall -Wextra -Werror -pthread
+CFLAGS = -Wall -Wextra -Werror -pthread
 
 OBJS = $(SRCS:.c=.o)
 

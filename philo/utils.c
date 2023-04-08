@@ -5,37 +5,48 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: pmikada <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/10 10:01:26 by pmikada           #+#    #+#             */
-/*   Updated: 2022/12/10 10:01:30 by pmikada          ###   ########.fr       */
+/*   Created: 2022/12/12 21:09:03 by pmikada           #+#    #+#             */
+/*   Updated: 2022/12/15 15:06:38 by pmikada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosopher.h"
 
-int	ft_atoi(char *str)
+int	ft_atoi(char *s)
 {
 	int	i;
 	int	m;
 	int	sum;
 
 	i = 0;
-	while ((str[i] >= '\t' && str[i] <= '\r') || str[i] == ' ')
+	while ((s[i] >= '\t' && s[i] <= '\r') || s[i] == ' ')
 		i++;
 	m = 1;
-	if (str[i] == '-')
+	if (s[i] == '-')
 		m = -1;
-	if (str[i] == '-' || str[i] == '+')
-		i++;
 	sum = 0;
-	while (str[i])
+	while (s[i])
 	{
-		if (str[i] >= '0' && str[i] <= '9')
-			sum = (sum * 10) + (str[i] - '0');
+		if (s[i] >= '0' && s[i] <= '9')
+			sum = (sum * 10) + (s[i] - '0');
 		else
 			return (-1);
 		i++;
 	}
 	return (sum * m);
+}
+
+long	ft_mil_now(void)
+{
+	struct timeval	now;
+
+	gettimeofday(&now, NULL);
+	return ((now.tv_sec * 1000) + (now.tv_usec / 1000));
+}
+
+long	ft_mil_print(long time_start)
+{
+	return (ft_mil_now() - time_start);
 }
 
 void	ft_print(long time, int mode, int id, int print)
@@ -49,40 +60,15 @@ void	ft_print(long time, int mode, int id, int print)
 		else if (mode == SLEEP)
 			printf("%s%ld %d is sleeping%s\n", GREEN, time, id, WHITE);
 		else if (mode == THINK)
-			printf("%s%ld %d is thinking%s\n", YELLOW, time, id, WHITE);
+			printf("%s%ld %d is think%s\n", YELLOW, time, id, WHITE);
 		else if (mode == DIE)
 			printf("%s%ld %d died%s\n", RED, time, id, WHITE);
 	}
 }
 
-long	ft_getmil(void)
+void	ft_free(t_rule *r)
 {
-	struct timeval	now;
-
-	gettimeofday(&now, NULL);
-	return ((now.tv_sec * 1000) + (now.tv_usec / 1000));
-}
-
-long	ft_gettime(struct timeval start)
-{
-	long	re;
-
-	re = ft_getmil() - ((start.tv_sec * 1000) + (start.tv_usec / 1000));
-	return (re);
-}
-
-void	ft_usleep(int time, int t_die, int *die)
-{
-	long	now;
-
-	now = ft_getmil();
-	while (ft_getmil() - now < (long)time)
-	{
-		if (ft_getmil() - now >= (long)t_die)
-		{
-			*die = 1;
-			return ;
-		}
-		usleep(500);
-	}
+	free(r->philo);
+	free(r->thread);
+	free(r->fork);
 }
